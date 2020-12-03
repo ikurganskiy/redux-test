@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form, Field } from "react-final-form";
 
 import styles from './PlanetForm.module.css'
 
 import { makeTitle } from '../../../../utils';
+
+const terrainValues = [
+  "desert",
+  "grasslands",
+  "mountains",
+  "jungle",
+  "forests",
+  "ocean",
+  "lakes",
+  "cityscape",
+  "grassy hills",
+  "rainforests",
+  "tundra",
+  "ice caves",
+  "swamp",
+  "gas giant",
+]
 
 function FormInput({ name, type = "text" }) {
   return (
@@ -48,7 +65,7 @@ function validate(values) {
     errors.gravity = "Gravity should be specified as based on standard value";
   }
 
-  if (!values.terrain) {
+  if (!values.terrain || values.terrain.length === 0) {
     errors.terrain = "Terrain should have at least one value";
   }
 
@@ -60,10 +77,15 @@ function validate(values) {
 }
 
 function PlanetForm({ formData, onCloseClick, onSubmit }) {
+  const handleSubmit = useCallback((values) => {
+    const { terrain, ...rest } = values;
+    onSubmit({ ...rest, terrain: terrain.join(',') })
+  }, [onSubmit])
+
   return (
     <div className={styles.formContainer}>
       <Form
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         initialValues={formData}
         validate={validate}
         render={({ handleSubmit, submitting, pristine, form, errors }) => (
@@ -82,28 +104,17 @@ function PlanetForm({ formData, onCloseClick, onSubmit }) {
             <Field
               name="terrain"
               type="select"
-              render={({ select, meta }) => (
-                <div className={styles.formElement}>
-                  <label className={styles.formElementLabel}>Terrain</label>
-                  <select {...select} multiple>
-                    <option value="desert">Desert</option>
-                    <option value="grasslands">Grasslands</option>
-                    <option value="mountains">Mountains</option>
-                    <option value="jungle">Jungle</option>
-                    <option value="forests">Forests</option>
-                    <option value="ocean">Ocean</option>
-                    <option value="lakes">Lakes</option>
-                    <option value="cityscape">Cityscape</option>
-                    <option value="grassy hills">Grassy hils</option>
-                    <option value="rainforests">Rainforests</option>
-                    <option value="tundra">Tundra</option>
-                    <option value="ice caves">Ice caves</option>
-                    <option value="swamp">Swamp</option>
-                    <option value="gas giant">Gas giant</option>
-                  </select>
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
+              render={({ input, meta }) => {
+                return (
+                  <div className={styles.formElement}>
+                    <label className={styles.formElementLabel}>Terrain</label>
+                    <select {...input} multiple>
+                      {terrainValues.map(item => (<option key={item} value={item}>{makeTitle(item)}</option>))}
+                    </select>
+                    {meta.touched && (meta.error || meta.submitError) && <span className={styles.formErrorLabel}>{meta.error || meta.submitError}</span>}
+                  </div>
+                )
+              }}
             />
             <FormInput name="surface_water" type="number" />
 
