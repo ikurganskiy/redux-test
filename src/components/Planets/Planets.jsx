@@ -55,17 +55,16 @@ function Planets({ fetchPlanets, data }) {
   }, [setIsOpen])
 
   const onSubmit = useCallback(async (values) => {
-    console.log('submitting values:', values)
     const errors = await new Promise(resolve => setTimeout(() => resolve({
       name: "Some server side error message"
     }), 1000))
 
     if (!errors) {
       closeModal()
+      return;
     }
-    else {
-      return errors
-    }
+
+    return errors
   }, [closeModal])
 
   useEffect(() => {

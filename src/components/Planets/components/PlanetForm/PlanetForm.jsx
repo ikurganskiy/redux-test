@@ -77,9 +77,9 @@ function validate(values) {
 }
 
 function PlanetForm({ formData, onCloseClick, onSubmit }) {
-  const handleSubmit = useCallback((values) => {
+  const handleSubmit = useCallback(async (values) => {
     const { terrain, ...rest } = values;
-    onSubmit({ ...rest, terrain: terrain.join(', ') })
+    return onSubmit({ ...rest, terrain: terrain.join(', ') })
   }, [onSubmit])
 
   return (
