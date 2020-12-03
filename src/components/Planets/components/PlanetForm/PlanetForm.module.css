@@ -1,0 +1,48 @@
+.formContainer {
+  width: 20rem;
+}
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonsBlock {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.formErrorLabel {
+  line-height: 1rem;
+  font-size: x-small;
+  color: crimson;
+}
+
+.formElement {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.formElementLabel {
+  line-height: 1rem;
+  font-size: small;
+}
+
+.formInput {
+  height: 1.1rem;
+}
+
+.closeButton {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.actionButton {
+  height: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: 1rem;
+  min-width: 6rem;
+}

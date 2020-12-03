@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import { fetchPlanetDetails } from "../../store/actions";
 
+import { makeTitle } from '../../utils';
+
 import styles from './PlanetDetails.module.css';
 
 const keys = [
@@ -17,24 +19,19 @@ const keys = [
   'surface_water',
 ]
 
-const makeTitle = str => {
-  const parts = str.replace('_', ' ')
-  return parts.charAt(0).toUpperCase() + parts.slice(1);
-}
-
 function PlanetDetails({ match, fetchPlanetDetails, planet }) {
 
   useEffect(() => {
     fetchPlanetDetails(match.params.id);
   }, [fetchPlanetDetails, match]);
 
-  return(
+  return (
     <div>
       <table className={styles.gridTable}>
         <colgroup>
-          <col style={{"width":"20%"}}/>
-          <col style={{"width":"80%"}}/>
-        </colgroup>  
+          <col style={{ "width": "20%" }} />
+          <col style={{ "width": "80%" }} />
+        </colgroup>
         <tbody>
           {keys.map(key => (
             <tr key={key}>
@@ -43,12 +40,12 @@ function PlanetDetails({ match, fetchPlanetDetails, planet }) {
             </tr>
           ))}
         </tbody>
-      </table>  
+      </table>
     </div>
   )
 }
 
-const mapStateToProps = ({planets:{planet}}) => {
+const mapStateToProps = ({ planets: { planet } }) => {
   return { planet }
 }
 
