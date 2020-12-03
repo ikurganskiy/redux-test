@@ -14,12 +14,12 @@ import configureStore from './store'
 const history = createBrowserHistory()
 
 function redirectToFilms(planetData) {
-  console.log(`redirect to grid with ${planetData.films.length} Films`)
-  history.push('/films')
+  history.push(`/films/${encodeURIComponent(planetData.films)}`)
 }
 
 function redirectToResidents(planetData) {
   console.log(`redirect to grid with ${planetData.residents.length} Residents`)
+  console.log('residents IDs:', planetData.residents)
   history.push('/residents')
 }
 
@@ -42,7 +42,9 @@ const initialState = {
       'gravity',
       'terrain',
       'surface_water',
-      'population'
+      'population',
+      'residents',
+      'films'
     ],
     actions: [
       {
