@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchFilms } from "../../store/actions";
 import styles from './Films.module.css';
 
-function Films({match, fetchFilms, films}) {
+function Films({match, fetchFilms, films = []}) {
   useEffect(() => {
     const ids = decodeURIComponent(match.params.ids)
     fetchFilms(ids.split(","));
@@ -15,7 +15,7 @@ function Films({match, fetchFilms, films}) {
       <table className={styles.gridTable}>
         <tbody>
           {films.map(film => (
-            <tr key={film.title}>
+            <tr key={film.url}>
               <td>{`${film.title} (episode: ${film.episode_id})`}</td>
             </tr>
           ))}

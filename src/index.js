@@ -18,13 +18,10 @@ function redirectToFilms(planetData) {
 }
 
 function redirectToResidents(planetData) {
-  console.log(`redirect to grid with ${planetData.residents.length} Residents`)
-  console.log('residents IDs:', planetData.residents)
-  history.push('/residents')
+  history.push(`/residents/${encodeURIComponent(planetData.residents)}`)
 }
 
 function redirectToPlanetDetails(planetData) {
-  console.log(`redirect to planet details ${planetData.url}`)
   const found = planetData.url.match(/(\d*)\/$/);
   if (found) {
     history.push(`/planet/${found[1]}`)
