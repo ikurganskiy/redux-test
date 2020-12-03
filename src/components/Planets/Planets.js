@@ -1,9 +1,15 @@
-import './Planets.css';
+import React, { useEffect } from "react";
 
-import Grid from '../Grid';
+import { connect } from "react-redux";
 
-function Planets() {
+import "./Planets.css";
 
+import Grid from "../Grid";
+
+import { fetchPlanets } from "../../store/actions";
+
+function Planets({ fetchPlanets, data }) {
+  /*
   const data = {
     header: [
       'name',
@@ -214,12 +220,28 @@ function Planets() {
       }
     ]
   }
+*/
+
+  useEffect(() => {
+    fetchPlanets();
+  }, [fetchPlanets]);
 
   return (
-    <div className='App'>
+    <div className="App">
       <Grid data={data} />
     </div>
   );
 }
 
-export default Planets;
+const mapStateToProps = (state) => {
+  const {
+    planets: { header, planets },
+  } = state;
+  return { data: { header, values: planets, actions: [] } };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchPlanets: () => dispatch(fetchPlanets()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Planets);
