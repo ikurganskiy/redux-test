@@ -1,6 +1,6 @@
 import './Grid.css';
 
-function Grid({data: {header = [], values = [], actions = []}}) {
+function Grid({data: {header = [], values = [], actions = []}, onEditDetails}) {
   return (
     <table className='gridTable'>
       <thead>
@@ -11,7 +11,7 @@ function Grid({data: {header = [], values = [], actions = []}}) {
       </thead>
       <tbody>
         {values.map((row) => (
-          <tr key={row.url}>
+          <tr key={row.url} onClick={(e) => onEditDetails(row)}>
             {header.map((colName) => {
               let value = row[colName];
               if (colName === 'residents' || colName === 'films') {
