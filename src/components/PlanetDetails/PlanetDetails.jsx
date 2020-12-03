@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import { fetchPlanetDetails } from "../../store/actions";
-
 import { makeTitle } from '../../utils';
-
 import styles from './PlanetDetails.module.css';
 
 const keys = [
@@ -20,7 +19,6 @@ const keys = [
 ]
 
 function PlanetDetails({ match, fetchPlanetDetails, planet }) {
-
   useEffect(() => {
     fetchPlanetDetails(match.params.id);
   }, [fetchPlanetDetails, match]);
@@ -44,6 +42,22 @@ function PlanetDetails({ match, fetchPlanetDetails, planet }) {
     </div>
   )
 }
+
+PlanetDetails.propTypes = {
+  fetchPlanetDetails: PropTypes.func.isRequired,
+  planet: PropTypes.shape({
+    name: PropTypes.string,
+    population: PropTypes.string,
+    diameter: PropTypes.string,
+    gravity: PropTypes.string,
+    orbital_period: PropTypes.string,
+    rotation_period: PropTypes.string,
+    terrain: PropTypes.string,
+    climate: PropTypes.string,
+    surface_water: PropTypes.string
+  })
+}
+
 
 const mapStateToProps = ({ planets: { planet } }) => {
   return { planet }

@@ -5,6 +5,10 @@
   border-collapse: separate;
 }
 
+.gridTable tr {
+  cursor: pointer;
+}
+
 .gridTable thead tr th {
   font-size: 14px;
   font-weight: 600;

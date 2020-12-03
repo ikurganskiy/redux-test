@@ -2,12 +2,11 @@ import React, { useEffect, useState, useCallback } from "react";
 import { connect } from "react-redux";
 import Modal from 'react-modal';
 
-import styles from './Planets.module.css';
-
 import Grid from "../Grid";
 import PlanetForm from './components/PlanetForm';
-
 import { fetchPlanets } from "../../store/actions";
+
+import styles from './Planets.module.css';
 
 const customStyles = {
   content: {

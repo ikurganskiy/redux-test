@@ -1,6 +1,8 @@
-import styles from './Grid.module.css';
+import React from "react";
+import PropTypes from 'prop-types';
 
 import { makeTitle } from '../../utils';
+import styles from './Grid.module.css';
 
 function Grid({ data: { header = [], values = [], actions = [] }, onEditDetails }) {
   return (
@@ -38,6 +40,21 @@ function Grid({ data: { header = [], values = [], actions = [] }, onEditDetails 
       </tbody>
     </table>
   );
+}
+
+Grid.propTypes = {
+  data: PropTypes.shape({
+    header: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.string
+    })),
+    values: PropTypes.any,
+    actions: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string,
+      action: PropTypes.func
+    }))
+  }).isRequired,
+  onEditDetails: PropTypes.func.isRequired
 }
 
 export default Grid;

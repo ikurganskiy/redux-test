@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import { fetchFilms } from "../../store/actions";
 import styles from './Films.module.css';
 
-function Films({match, fetchFilms, films = []}) {
+function Films({ match, fetchFilms, films }) {
   useEffect(() => {
     const ids = decodeURIComponent(match.params.ids)
     fetchFilms(ids.split(","));
   }, [fetchFilms, match]);
 
-  return(
+  return (
     <div>
       <table className={styles.gridTable}>
         <tbody>
@@ -20,12 +21,21 @@ function Films({match, fetchFilms, films = []}) {
             </tr>
           ))}
         </tbody>
-      </table>  
+      </table>
     </div>
   )
 }
 
-const mapStateToProps = ({films:{films}}) => {
+Films.propTypes = {
+  fetchFilms: PropTypes.func.isRequired,
+  films: PropTypes.array.isRequired
+}
+
+Films.defaultProps = {
+  films: []
+}
+
+const mapStateToProps = ({ films: { films } }) => {
   return { films }
 }
 

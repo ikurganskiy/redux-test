@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Field } from "react-final-form";
 
-import styles from './PlanetForm.module.css'
-
 import { makeTitle } from '../../../../utils';
+import styles from './PlanetForm.module.css'
 
 const terrainValues = [
   "desert",
@@ -140,6 +140,21 @@ function PlanetForm({ formData, onCloseClick, onSubmit }) {
       />
     </div>
   )
+}
+
+PlanetForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string,
+    rotation_period: PropTypes.string,
+    orbital_period: PropTypes.string,
+    diameter: PropTypes.string,
+    climate: PropTypes.string,
+    gravity: PropTypes.string,
+    terrain: PropTypes.arrayOf(PropTypes.string),
+    surface_water: PropTypes.string,
+  }),
+  onCloseClick: PropTypes.func,
+  onSubmit: PropTypes.func
 }
 
 export default PlanetForm

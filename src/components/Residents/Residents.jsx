@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import { fetchResidents } from "../../store/actions";
 import styles from './Residents.module.css';
 
-function Residents({match, fetchResidents, residents = []}) {
+function Residents({ match, fetchResidents, residents }) {
   useEffect(() => {
     const ids = decodeURIComponent(match.params.ids)
     fetchResidents(ids.split(","));
   }, [fetchResidents, match]);
 
-  return(
+  return (
     <div>
       <table className={styles.gridTable}>
         <tbody>
@@ -20,12 +21,21 @@ function Residents({match, fetchResidents, residents = []}) {
             </tr>
           ))}
         </tbody>
-      </table>  
+      </table>
     </div>
   )
 }
 
-const mapStateToProps = ({residents:{residents}}) => {
+Residents.propTypes = {
+  fetchResidents: PropTypes.func.isRequired,
+  residents: PropTypes.array.isRequired
+}
+
+Residents.defaultProps = {
+  residents: []
+}
+
+const mapStateToProps = ({ residents: { residents } }) => {
   return { residents }
 }
 
