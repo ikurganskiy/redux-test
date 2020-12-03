@@ -10,12 +10,12 @@ function Grid({data: {header = [], values = [], actions = []}}) {
         </tr>
       </thead>
       <tbody>
-        {values.map((row, index) => (
-          <tr key={index}>
+        {values.map((row) => (
+          <tr key={row.url}>
             {header.map((colName) => <td key={colName}>{row[colName]}</td>)}
             {!!actions.length && 
               <td className='gridActions'>
-                {actions.map(({label, action}) => <button onClick={() => action(row)}>{label}</button>)}
+                {actions.map(({label, action}, index) => <button key={`${row.url})_${index}`} onClick={() => action(row)}>{label}</button>)}
               </td>
             }
           </tr>

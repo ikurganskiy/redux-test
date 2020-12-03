@@ -15,7 +15,7 @@ export function* fetchPlanetsSaga() {
 
 export function* fetchPlanetDetailsSaga(action) {
   try {
-    const { id } = action.payload 
+    const id = action.payload 
     const { data } = yield call(API.get, `planets/${id}`);
     yield put(planetDetailsSuccess(data));
   } catch (err) {

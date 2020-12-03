@@ -1,14 +1,18 @@
+import React, { lazy, Suspense } from "react";
+import { Route, Switch, Redirect } from 'react-router-dom'
 import './App.css';
 
-import Planets from '../Planets';
+const Planets = lazy(() => import('../Planets'))
+const PlanetDetails = lazy(() => import('../PlanetDetails'))
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Star Wars Planets</h1>
-      <Planets />
-    </div>
-  );
-}
+export const App = () => (
+  <Suspense fallback="Loading...">
+    <Switch>
+      <Route exact path="/" component={Planets} />
+      <Route exact path="/planet/:id" component={PlanetDetails} />
+      <Redirect to="/" />
+    </Switch>
+  </Suspense>
+)
 
 export default App;

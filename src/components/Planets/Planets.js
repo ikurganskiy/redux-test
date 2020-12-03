@@ -228,6 +228,7 @@ function Planets({ fetchPlanets, data }) {
 
   return (
     <div className="App">
+      <h1>Star Wars Planets</h1>
       <Grid data={data} />
     </div>
   );
@@ -235,9 +236,9 @@ function Planets({ fetchPlanets, data }) {
 
 const mapStateToProps = (state) => {
   const {
-    planets: { header, planets },
+    planets: { header, planets, actions },
   } = state;
-  return { data: { header, values: planets, actions: [] } };
+  return { data: { header, values: planets, actions } };
 };
 
 const mapDispatchToProps = (dispatch) => ({
