@@ -9,6 +9,7 @@ const terrainValues = [
   "desert",
   "grasslands",
   "mountains",
+  "mountain ranges",
   "jungle",
   "forests",
   "ocean",
@@ -38,7 +39,6 @@ function FormInput({ name, type = "text" }) {
 }
 
 function validate(values) {
-  console.log(values)
   const errors = {}
 
   if (!values.name) {
@@ -79,7 +79,7 @@ function validate(values) {
 function PlanetForm({ formData, onCloseClick, onSubmit }) {
   const handleSubmit = useCallback((values) => {
     const { terrain, ...rest } = values;
-    onSubmit({ ...rest, terrain: terrain.join(',') })
+    onSubmit({ ...rest, terrain: terrain.join(', ') })
   }, [onSubmit])
 
   return (

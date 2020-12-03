@@ -44,7 +44,7 @@ function Planets({ fetchPlanets, data }) {
       diameter,
       climate,
       gravity,
-      terrain: terrain.split(','),
+      terrain: terrain.split(', '),
       surface_water
     })
     setIsOpen(true)
