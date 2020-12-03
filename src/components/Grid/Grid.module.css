@@ -25,6 +25,15 @@
   background: #f1f1f1;
 }
 
+.gridActions {
+  display: flex;
+  flex-direction: column;
+}
+
 .gridActions button {
   margin: 0 5px;
+}
+
+.rightAligned {
+  text-align: right
 }

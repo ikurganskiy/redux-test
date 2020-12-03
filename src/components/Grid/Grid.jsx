@@ -1,25 +1,27 @@
-import './Grid.css';
+import styles from './Grid.module.css';
+
+import { makeTitle } from '../../utils';
 
 function Grid({ data: { header = [], values = [], actions = [] }, onEditDetails }) {
   return (
-    <table className='gridTable'>
+    <table className={styles.gridTable}>
       <thead>
         <tr>
-          {header.map(colName => <th key={colName}>{colName}</th>)}
+          {header.map(({ name }) => <th key={name}>{makeTitle(name)}</th>)}
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         {values.map((row) => (
           <tr key={row.url} onClick={(e) => onEditDetails(row)}>
-            {header.map((colName) => {
-              let value = row[colName];
-              if (colName === 'residents' || colName === 'films') {
+            {header.map(({ name, type }) => {
+              let value = row[name];
+              if (name === 'residents' || name === 'films') {
                 value = value.length;
               }
-              return <td key={colName}>{value}</td>
+              return <td key={name} className={type === 'number' ? styles.rightAligned : undefined}>{value}</td>
             })}
-            <td className='gridActions'>
+            <td className={styles.gridActions}>
               {actions.reduce((acc, { label, action }, index) => {
                 if (index === 1 && row.films == 0) {
                   return acc;
