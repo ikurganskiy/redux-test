@@ -10,7 +10,6 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
 import configureStore from './store'
-import PlanetDetails from './components/PlanetDetails/PlanetDetails';
 
 const history = createBrowserHistory()
 

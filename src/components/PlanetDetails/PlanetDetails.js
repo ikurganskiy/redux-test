@@ -3,17 +3,48 @@ import { connect } from "react-redux";
 
 import { fetchPlanetDetails } from "../../store/actions";
 
-import './PlanetDetails.css';
+import styles from './PlanetDetails.module.css';
 
-function PlanetDetails(props) {
-  const { match, fetchPlanetDetails, planet } = props;
+const keys = [
+  'name',
+  'population',
+  'diameter',
+  'gravity',
+  'orbital_period',
+  'rotation_period',
+  'terrain',
+  'climate',
+  'surface_water',
+]
+
+const makeTitle = str => {
+  const parts = str.replace('_', ' ')
+  return parts.charAt(0).toUpperCase() + parts.slice(1);
+}
+
+function PlanetDetails({ match, fetchPlanetDetails, planet }) {
 
   useEffect(() => {
     fetchPlanetDetails(match.params.id);
   }, [fetchPlanetDetails, match]);
 
   return(
-    <div>{`Planet details ${match.params.id} ${JSON.stringify(planet)}`}</div>
+    <div>
+      <table className={styles.gridTable}>
+        <colgroup>
+          <col style={{"width":"20%"}}/>
+          <col style={{"width":"80%"}}/>
+        </colgroup>  
+        <tbody>
+          {keys.map(key => (
+            <tr key={key}>
+              <td>{makeTitle(key)}</td>
+              <td>{planet ? planet[key] : ''}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>  
+    </div>
   )
 }
 
