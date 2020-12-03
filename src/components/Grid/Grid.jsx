@@ -1,12 +1,12 @@
 import './Grid.css';
 
-function Grid({data: {header = [], values = [], actions = []}, onEditDetails}) {
+function Grid({ data: { header = [], values = [], actions = [] }, onEditDetails }) {
   return (
     <table className='gridTable'>
       <thead>
         <tr>
           {header.map(colName => <th key={colName}>{colName}</th>)}
-          {!!actions.length && <th>Actions</th>}
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -19,11 +19,18 @@ function Grid({data: {header = [], values = [], actions = []}, onEditDetails}) {
               }
               return <td key={colName}>{value}</td>
             })}
-            {!!actions.length && 
-              <td className='gridActions'>
-                {actions.map(({label, action}, index) => <button key={`${row.url})_${index}`} onClick={() => action(row)}>{label}</button>)}
-              </td>
-            }
+            <td className='gridActions'>
+              {actions.reduce((acc, { label, action }, index) => {
+                if (index === 1 && row.films == 0) {
+                  return acc;
+                }
+                else if (index === 2 && row.residents == 0) {
+                  return acc;
+                }
+
+                return [...acc, <button key={`${row.url})_${index}`} onClick={() => action(row)}>{label}</button>]
+              }, [])}
+            </td>
           </tr>
         ))}
       </tbody>
